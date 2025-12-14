@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Polska Korporacja EVE Online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --accent: #38bdf8;
+            --accent-strong: #0ea5e9;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border: #1e293b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            color: var(--text-main);
+            background: black;
+            overflow-x: hidden;
+        }
+
+        /* ===== STAR BACKGROUND ===== */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(1px 1px at 20% 30%, white, transparent),
+                radial-gradient(1px 1px at 80% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 10% 90%, white, transparent),
+                radial-gradient(1px 1px at 90% 10%, white, transparent);
+            background-size: 200px 200px;
+            animation: stars 120s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes stars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-2000px); }
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: radial-gradient(circle at top, #1e293b, transparent 70%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        header img {
+            max-width: 140px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-family: "Orbitron", sans-serif;
+            font-size: 2.8em;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            color: var(--accent);
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        /* ===== MAIN GRID ===== */
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 50px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        section {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(6px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        h2 {
+            font-family: "Orbitron", sans-serif;
+            font-size: 1.3em;
+            margin-top: 0;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .highlight {
+            color: var(--accent-strong);
+            font-weight: 600;
+        }
+
+        /* ===== BUTTONS ===== */
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95em;
+            color: black;
+            background: var(--accent);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--accent-strong);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9em;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: rgba(2,6,23,0.8);
+        }
+
+        /* ===== LANG ===== */
+        .lang {
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- TU MOŻESZ DODAĆ LOGO -->
+    <img src="logo.png" alt="Logo Korporacji">
+    <h1>Polska Korporacja EVE Online</h1>
+    <p>Region operacyjny: <span class="highlight">Syndicate</span></p>
+</header>
+
+<main>
+
+    <section>
+        <h2>O nas (PL)</h2>
+        <p>
+            Jesteśmy <strong>polską korporacją</strong> w EVE Online,
+            skoncentrowaną na <strong>górnictwie i przemyśle</strong>.
+            Operujemy w regionie <span class="highlight">Syndicate</span>,
+            oferując stabilne i zorganizowane środowisko gry.
+        </p>
+    </section>
+
+    <section>
+        <h2>About Us (EN)</h2>
+        <p>
+            We are a <strong>Polish corporation</strong> in EVE Online,
+            focused on <strong>mining and industry</strong>.
+            Operating in the <span class="highlight">Syndicate</span> region,
+            we provide a structured and friendly environment.
+        </p>
+    </section>
+
+    <section>
+        <h2>Działalność</h2>
+        <ul>
+            <li>Mining operations</li>
+            <li>Industry & production</li>
+            <li>Logistics & reprocessing</li>
+            <li>Alliance support</li>
+            <li>PvE / Fleet ops</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Sojusz</h2>
+        <p>
+            Jesteśmy częścią sojuszu:
+        </p>
+        <p class="highlight">
+            Intaki-Business Logistics Union
+        </p>
+        <p>
+            Sojusz zapewnia infrastrukturę, ochronę
+            oraz wspólne operacje w przestrzeni null-sec.
+        </p>
+    </section>
+
+    <section>
+        <h2>Rekrutacja</h2>
+        <p>
+            Szukamy zarówno nowych, jak i doświadczonych pilotów.
+            Jeśli interesuje Cię mining, przemysł i gra
+            w zgranej, polskiej ekipie — zapraszamy.
+        </p>
+
+        <div class="buttons">
+            <a class="btn" href="https://discord.gg/sFjPVQTQ" target="_blank">Discord</a>
+            <a class="btn" href="https://zkillboard.com/corporation/98616801/" target="_blank">zKillboard</a>
+        </div>
+
+        <div class="lang">
+            Kontakt w grze Krzysztof Retnet
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    &copy; 2025 Polska Korporacja EVE Online<br>
+    Syndicate | Intaki-Business Logistics Union
+</footer>
+
+</body>
+</html>

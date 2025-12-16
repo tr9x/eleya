@@ -2,11 +2,9 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Polska Korporacja EVE Online</title>
+    <title>Eleya - Polska Korporacja EVE Online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -19,17 +17,15 @@
             --border: #1e293b;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
             font-family: "Inter", sans-serif;
             color: var(--text-main);
             background: black;
             overflow-x: hidden;
         }
 
-        /* ===== STAR BACKGROUND ===== */
         body::before {
             content: "";
             position: fixed;
@@ -50,7 +46,100 @@
             to { transform: translateY(-2000px); }
         }
 
-        /* ===== HEADER ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav .logo {
+            font-family: "Orbitron", sans-serif;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--accent);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        nav .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav .menu {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+
+        nav .lang-switch {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 5px;
+            display: flex;
+            gap: 5px;
+        }
+
+        nav .lang-switch button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 5px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        nav .lang-switch button.active {
+            background: var(--accent);
+            color: black;
+            transform: scale(1.1);
+        }
+
         header {
             text-align: center;
             padding: 80px 20px 60px;
@@ -61,29 +150,55 @@
         header img {
             max-width: 140px;
             margin-bottom: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         header h1 {
             font-family: "Orbitron", sans-serif;
             font-size: 2.8em;
-            margin: 0;
             letter-spacing: 1px;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--accent); }
+            to { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
         }
 
         header p {
             color: var(--accent);
             font-size: 1.2em;
-            margin-top: 10px;
         }
 
-        /* ===== MAIN GRID ===== */
-        main {
+        .page-content {
             max-width: 1200px;
             margin: auto;
             padding: 50px 20px;
+            display: none;
+            min-height: 60vh;
+        }
+
+        .page-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
+            margin-bottom: 40px;
         }
 
         section {
@@ -92,30 +207,39 @@
             border-radius: 14px;
             border: 1px solid var(--border);
             backdrop-filter: blur(6px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         section:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(56, 189, 248, 0.2);
+            border-color: var(--accent);
         }
 
         h2 {
             font-family: "Orbitron", sans-serif;
             font-size: 1.3em;
-            margin-top: 0;
             color: var(--accent);
             border-bottom: 1px solid var(--border);
             padding-bottom: 8px;
+            margin-bottom: 15px;
         }
 
-        ul {
-            padding-left: 20px;
+        h3 {
+            font-family: "Orbitron", sans-serif;
+            font-size: 1.1em;
+            color: var(--accent-strong);
+            margin: 20px 0 10px 0;
         }
+
+        p { margin-bottom: 15px; line-height: 1.6; }
+
+        ul, ol { padding-left: 20px; margin-bottom: 15px; }
 
         li {
             margin-bottom: 8px;
             color: var(--text-muted);
+            line-height: 1.5;
         }
 
         .highlight {
@@ -123,7 +247,6 @@
             font-weight: 600;
         }
 
-        /* ===== BUTTONS ===== */
         .buttons {
             display: flex;
             flex-wrap: wrap;
@@ -139,15 +262,217 @@
             font-size: 0.95em;
             color: black;
             background: var(--accent);
-            transition: background 0.2s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn:hover {
             background: var(--accent-strong);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
         }
 
-        /* ===== FOOTER ===== */
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.1), transparent 60%);
+        }
+
+        .hero h2 {
+            border: none;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 30px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.3);
+            border-color: var(--accent);
+        }
+
+        .stat-card .number {
+            font-family: "Orbitron", sans-serif;
+            font-size: 2.5em;
+            color: var(--accent);
+            font-weight: 700;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .stat-card .label {
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            cursor: pointer;
+            aspect-ratio: 16/9;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.3);
+            border-color: var(--accent);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item .overlay h3 {
+            color: var(--accent);
+            margin: 0 0 5px 0;
+            font-size: 1em;
+        }
+
+        .gallery-item .overlay p {
+            color: var(--text-muted);
+            font-size: 0.85em;
+            margin: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.4s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
         footer {
             text-align: center;
             padding: 25px;
@@ -155,100 +480,608 @@
             color: var(--text-muted);
             border-top: 1px solid var(--border);
             background: rgba(2,6,23,0.8);
+            margin-top: 50px;
         }
 
-        /* ===== LANG ===== */
-        .lang {
-            margin-top: 10px;
-            font-size: 0.85em;
-            color: var(--text-muted);
-        }
-
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             header h1 { font-size: 2em; }
+            nav .container { justify-content: center; }
+            nav .menu { width: 100%; justify-content: center; }
+            .gallery { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+<nav>
+    <div class="container">
+        <div class="logo" onclick="showPage('home')">ELEYA</div>
+        <div class="menu">
+            <a data-page="home" class="nav-link active" data-i18n="nav-home">Home</a>
+            <a data-page="recruitment" class="nav-link" data-i18n="nav-recruitment">Rekrutacja</a>
+            <a data-page="rules" class="nav-link" data-i18n="nav-rules">Zasady</a>
+            <a data-page="fleet" class="nav-link" data-i18n="nav-fleet">Flota</a>
+            <a data-page="newbies" class="nav-link" data-i18n="nav-newbies">Dla Nowych</a>
+            <a data-page="gallery" class="nav-link" data-i18n="nav-gallery">Galeria</a>
+            <a data-page="contact" class="nav-link" data-i18n="nav-contact">Kontakt</a>
+        </div>
+        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="pl">PL</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+    </div>
+</nav>
+
 <header>
-    <!-- TU MOŻESZ DODAĆ LOGO -->
-    <img src="logo.png" alt="Logo Korporacji">
-    <h1>Polska Korporacja EVE Online "Eleya"</h1>
-    <p>Region operacyjny: <span class="highlight">Syndicate</span></p>
+    <img src="logo.png" alt="Logo Eleya" onerror="this.style.display='none'">
+    <h1>Eleya</h1>
+    <p><span data-i18n="header-region">Region:</span> <span class="highlight">Syndicate</span></p>
 </header>
 
-<main>
-
-    <section>
-        <h2>O nas (PL)</h2>
-        <p>
-            Jesteśmy <strong>polską korporacją</strong> w EVE Online,
-            skoncentrowaną na <strong>górnictwie i przemyśle</strong>.
-            Operujemy w regionie <span class="highlight">Syndicate</span>,
-            oferując stabilne i zorganizowane środowisko gry.
-        </p>
-    </section>
-
-    <section>
-        <h2>About Us (EN)</h2>
-        <p>
-            We are a <strong>Polish corporation</strong> in EVE Online,
-            focused on <strong>mining and industry</strong>.
-            Operating in the <span class="highlight">Syndicate</span> region,
-            we provide a structured and friendly environment.
-        </p>
-    </section>
-
-    <section>
-        <h2>Działalność</h2>
-        <ul>
-            <li>Mining operations</li>
-            <li>Industry & production</li>
-            <li>Logistics & reprocessing</li>
-            <li>Alliance support</li>
-            <li>PvE / Fleet ops</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Sojusz</h2>
-        <p>
-            Jesteśmy częścią sojuszu:
-        </p>
-        <p class="highlight">
-            Intaki-Business Logistics Union
-        </p>
-        <p>
-            Sojusz zapewnia infrastrukturę, ochronę
-            oraz wspólne operacje w przestrzeni null-sec.
-        </p>
-    </section>
-
-    <section>
-        <h2>Rekrutacja</h2>
-        <p>
-            Szukamy zarówno nowych, jak i doświadczonych pilotów.
-            Jeśli interesuje Cię mining, przemysł i gra
-            w zgranej, polskiej ekipie — zapraszamy.
-        </p>
-
+<!-- HOME -->
+<div id="home" class="page-content active">
+    <div class="hero">
+        <h2 data-i18n="hero-title">Witaj w Eleya</h2>
+        <p data-i18n="hero-desc">Polska korporacja w EVE Online, gdzie kopiemy razem, rozmawiamy i budujemy imperium przemysłowe w Syndicate. Luźna atmosfera, regularne mining ops, zero stresu.</p>
         <div class="buttons">
             <a class="btn" href="https://discord.gg/sFjPVQTQ" target="_blank">Discord</a>
-            <a class="btn" href="https://zkillboard.com/corporation/98616801/" target="_blank">zKillboard</a>
+            <button class="btn btn-secondary" onclick="showPage('recruitment')" data-i18n="hero-apply">Aplikuj</button>
         </div>
+    </div>
 
-        <div class="lang">
-            Kontakt w grze Krzysztof Retnet
+    <div class="stats">
+        <div class="stat-card">
+            <div class="number">24/7</div>
+            <div class="label" data-i18n="stat-ops">Mining Ops</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">100%</div>
+            <div class="label" data-i18n="stat-polish">Polski Skład</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">0%</div>
+            <div class="label" data-i18n="stat-drama">Drama</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">∞</div>
+            <div class="label" data-i18n="stat-fun">Zabawy</div>
+        </div>
+    </div>
+
+    <div class="grid" style="margin-top: 50px;">
+        <section>
+            <h2 data-i18n="about-title">O nas</h2>
+            <p data-i18n="about-text1">Jesteśmy polską korporacją w EVE Online, która operuje w regionie Syndicate. Skupiamy się głównie na górnictwie i przemyśle, ale nie ograniczamy się tylko do tego.</p>
+            <p data-i18n="about-text2">Nie mamy sztywnych zasad ani wymagań - jeśli chcesz kopać, kopiemy razem. Luźna atmosfera to nasz priorytet.</p>
+        </section>
+
+        <section>
+            <h2 data-i18n="activities-title">Czym się zajmujemy</h2>
+            <ul>
+                <li data-i18n="act1">Regularne mining ops (główna działalność)</li>
+                <li data-i18n="act2">Industry & produkcja</li>
+                <li data-i18n="act3">Logistics & reprocessing</li>
+                <li data-i18n="act4">Wsparcie dla sojuszu</li>
+                <li data-i18n="act5">PvE / ratting</li>
+                <li data-i18n="act6">Fleet ops (od czasu do czasu)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 data-i18n="alliance-title">Sojusz</h2>
+            <p data-i18n="alliance-text1">Jesteśmy częścią sojuszu:</p>
+            <p class="highlight">Intaki-Business Logistics Union</p>
+            <p data-i18n="alliance-text2">Sojusz zapewnia infrastrukturę, ochronę oraz wspólne operacje w null-sec.</p>
+        </section>
+
+        <section>
+            <h2 data-i18n="why-title">Dlaczego Eleya?</h2>
+            <ul>
+                <li><span data-i18n="why1"><strong>Luźna atmosfera</strong> - zero wymagań</span></li>
+                <li><span data-i18n="why2"><strong>100% PL</strong> - gadamy po polsku</span></li>
+                <li><span data-i18n="why3"><strong>Regularne ops</strong> - zawsze ktoś kopie</span></li>
+                <li><span data-i18n="why4"><strong>Null-sec dla każdego</strong> - pomożemy</span></li>
+                <li><span data-i18n="why5"><strong>Stabilność</strong> - jesteśmy na dłużej</span></li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<!-- RECRUITMENT -->
+<div id="recruitment" class="page-content">
+    <section style="max-width: 800px; margin: 0 auto;">
+        <h2 data-i18n="rec-title">Rekrutacja</h2>
+        <p data-i18n="rec-intro">Szukamy zarówno nowych, jak i doświadczonych pilotów. Jeśli interesujesz się miningiem, przemysłem i chcesz grać w polskiej ekipie - jesteś w dobrym miejscu.</p>
+        
+        <h3 data-i18n="rec-who-title">Kogo szukamy?</h3>
+        <ul>
+            <li><span data-i18n="rec-who1"><strong>Każdego!</strong> - Alpha, Omega, nowi, weterani</span></li>
+            <li data-i18n="rec-who2">Ludzi zainteresowanych miningiem i industrią</li>
+            <li data-i18n="rec-who3">Graczy chcących spróbować null-sec</li>
+            <li data-i18n="rec-who4">Osoby ceniące luźną atmosferę</li>
+            <li data-i18n="rec-who5">Mówiących po polsku (to jedyny wymóg)</li>
+        </ul>
+
+        <h3 data-i18n="rec-req-title">Wymagania</h3>
+        <p data-i18n="rec-req-intro">Właściwie nie ma żadnych. Jeśli:</p>
+        <ul>
+            <li data-i18n="rec-req1">Mówisz po polsku</li>
+            <li data-i18n="rec-req2">Nie jesteś toksyczny</li>
+            <li data-i18n="rec-req3">Chcesz się bawić</li>
+        </ul>
+        <p data-i18n="rec-req-outro">...to jesteś mile widziany!</p>
+
+        <h3 data-i18n="rec-offer-title">Co oferujemy?</h3>
+        <ul>
+            <li data-i18n="rec-offer1">Regularne mining ops z ekipą</li>
+            <li data-i18n="rec-offer2">Pomoc dla nowych graczy</li>
+            <li data-i18n="rec-offer3">Dostęp do struktur sojuszu</li>
+            <li data-i18n="rec-offer4">Luźną atmosferę bez presji</li>
+            <li data-i18n="rec-offer5">Kanały Discord do gadania</li>
+        </ul>
+
+        <h3 data-i18n="rec-how-title">Jak dołączyć?</h3>
+        <ol>
+            <li>Wejdź na Discord: <a href="https://discord.gg/sFjPVQTQ" class="highlight" target="_blank">discord.gg/sFjPVQTQ</a></li>
+            <li>Napisz w grze do: <strong class="highlight">Krzysztof Retnet</strong></li>
+            <li data-i18n="rec-step3">Pogadamy, odpowiemy na pytania</li>
+            <li>Aplikacja in-game do korporacji <strong>Eleya</strong></li>
+        </ol>
+
+        <div class="buttons" style="margin-top: 30px;">
+            <a class="btn" href="https://discord.gg/sFjPVQTQ" target="_blank">Discord</a>
+            <a class="btn btn-secondary" href="https://zkillboard.com/corporation/98616801/" target="_blank">zKillboard</a>
         </div>
     </section>
+</div>
 
-</main>
+<!-- RULES -->
+<div id="rules" class="page-content">
+    <section style="max-width: 800px; margin: 0 auto;">
+        <h2 data-i18n="rules-title">Zasady Korporacji</h2>
+        <p data-i18n="rules-intro">Zasady są proste - chcemy, żeby każdemu było przyjemnie grać. Nie mamy długiej listy regulaminów, ale kilka podstawowych rzeczy warto wiedzieć.</p>
+
+        <h3 data-i18n="rules-basic-title">Podstawowe zasady</h3>
+        <ul>
+            <li><span data-i18n="rule1"><strong>Nie bądź toksyczny</strong> - szanuj innych</span></li>
+            <li><span data-i18n="rule2"><strong>Baw się dobrze</strong> - to gra, relax</span></li>
+            <li><span data-i18n="rule3"><strong>Wspieraj ekipę</strong> - pomagamy sobie</span></li>
+            <li><span data-i18n="rule4"><strong>Discord to podstawa</strong> - tam jest życie</span></li>
+            <li><span data-i18n="rule5"><strong>Zero dramy</strong> - zostawiamy konflikty za drzwiami</span></li>
+        </ul>
+
+        <h3 data-i18n="rules-mining-title">Mining Operations</h3>
+        <ul>
+            <li>Mining ops są regularne, udział <strong>dobrowolny</strong></li>
+            <li data-i18n="mine2">Możesz kopać solo lub z ekipą</li>
+            <li data-i18n="mine3">Dziel się info o dobrych miejscach</li>
+            <li data-i18n="mine4">Zagrożenie? Daj znać na Discord</li>
+        </ul>
+
+        <h3 data-i18n="rules-pvp-title">PvP i Floty</h3>
+        <ul>
+            <li>Floty sojuszu są <strong>opcjonalne</strong></li>
+            <li data-i18n="pvp2">Chcesz latać - super, nie chcesz - też OK</li>
+            <li data-i18n="pvp3">Przestrzegaj zasad FC podczas ops</li>
+            <li data-i18n="pvp4">Nie prowokuj konfliktów bez zgody</li>
+        </ul>
+
+        <h3 data-i18n="rules-loot-title">Majątek i Loot</h3>
+        <ul>
+            <li data-i18n="loot1">Twoje loot = twoje loot</li>
+            <li data-i18n="loot2">Nie kradnij od członków corp</li>
+            <li data-i18n="loot3">W flotach loot dzielimy fair</li>
+            <li data-i18n="loot4">Szanuj struktury corp i sojuszu</li>
+        </ul>
+
+        <h3 data-i18n="rules-break-title">Co jak złamiesz zasady?</h3>
+        <p data-i18n="rules-break-text">Najpierw pogadamy. Jesteśmy luźni, ale jak ktoś celowo psuje atmosferę, toksykuje albo kradnie - zostanie wyrzucony.</p>
+
+        <p style="margin-top: 30px; color: var(--text-muted);" data-i18n="rules-remember">Pamiętaj: zasady są po to, żeby było fajnie. Bądź spoko człowiekiem.</p>
+    </section>
+</div>
+
+<!-- FLEET -->
+<div id="fleet" class="page-content">
+    <section style="max-width: 800px; margin: 0 auto;">
+        <h2 data-i18n="fleet-title">Flota & Doktryny</h2>
+        <p data-i18n="fleet-intro">Jako część sojuszu bierzemy udział w operacjach floty. Nie jest to wymagane, ale jeśli chcesz się bawić w PvP - zapraszamy.</p>
+
+        <h3 data-i18n="fleet-ops-title">Fleet Operations</h3>
+        <ul>
+            <li><span data-i18n="fop1"><strong>Defense Fleets</strong> - obrona struktur</span></li>
+            <li><span data-i18n="fop2"><strong>Mining Protection</strong> - ochrona ops</span></li>
+            <li><span data-i18n="fop3"><strong>Roaming</strong> - wycieczki PvP</span></li>
+            <li><span data-i18n="fop4"><strong>Stratops</strong> - operacje sojuszu (opcjonalne)</span></li>
+        </ul>
+
+        <h3 data-i18n="fleet-doctrine-title">Podstawowe Doktryny</h3>
+        <p data-i18n="fleet-doctrine-intro">Nie mamy sztywnych wymagań, ale przydatne:</p>
+        <ul>
+            <li><span data-i18n="doc1"><strong>Mining Barges/Exhumers</strong> - główna działalność</span></li>
+            <li><span data-i18n="doc2"><strong>Haulers (T1/T2)</strong> - transport</span></li>
+            <li><span data-i18n="doc3"><strong>PvE Ships</strong> - VNI, Gila, Rattlesnake</span></li>
+            <li><span data-i18n="doc4"><strong>PvP Cruisers</strong> - jak chcesz latać</span></li>
+        </ul>
+
+        <h3 data-i18n="fleet-comms-title">Komunikacja</h3>
+        <ul>
+            <li><span data-i18n="comm1"><strong>Discord</strong> - główna komunikacja</span></li>
+            <li><span data-i18n="comm2"><strong>Comms sojuszu</strong> - podczas fleet ops</span></li>
+            <li><span data-i18n="comm3"><strong>Intel channels</strong> - śledź dla bezpieczeństwa</span></li>
+            <li><span data-i18n="comm4"><strong>Fleet chat</strong> - instrukcje FC</span></li>
+        </ul>
+
+        <h3 data-i18n="fleet-tips-title">Zasady Fleet Ops</h3>
+        <ul>
+            <li data-i18n="tip1">Słuchaj Fleet Commandera (FC)</li>
+            <li data-i18n="tip2">Lataj w tym, o co prosi FC</li>
+            <li data-i18n="tip3">Cisza na comms podczas walki</li>
+            <li data-i18n="tip4">Nie wiesz? Pytaj!</li>
+            <li data-i18n="tip5">Śmierć to część gry - nie stresuj</li>
+        </ul>
+
+        <p style="margin-top: 30px; color: var(--text-muted);" data-i18n="fleet-remember">Floty są opcjonalne. Wolisz tylko kopać? Spoko!</p>
+    </section>
+</div>
+
+<!-- NEWBIES -->
+<div id="newbies" class="page-content">
+    <section style="max-width: 800px; margin: 0 auto;">
+        <h2 data-i18n="new-title">Dla Nowych Graczy</h2>
+        <p data-i18n="new-intro">Dopiero zaczynasz w EVE? Nie martw się! Pomagamy nowym graczom wejść w null-sec. Oto co powinieneś wiedzieć.</p>
+
+        <h3 data-i18n="new-start-title">Od czego zacząć?</h3>
+        <ol>
+            <li><span data-i18n="start1"><strong>Ukończ tutorial</strong> - EVE ma świetny tutorial</span></li>
+            <li><span data-i18n="start2"><strong>Career agents</strong> - zrób misje (Mining, Industry)</span></li>
+            <li><span data-i18n="start3"><strong>Dołącz do nas</strong> - napisz na Discord</span></li>
+            <li><span data-i18n="start4"><strong>Przyjedź do Syndicate</strong> - pomożemy</span></li>
+        </ol>
+
+        <h3 data-i18n="new-alpha-title">Alpha vs Omega</h3>
+        <p data-i18n="alpha-intro">Możesz grać jako Alpha (free), ale Omega daje więcej:</p>
+        <ul>
+            <li><span data-i18n="alpha1"><strong>Alpha</strong> - Venture, Procuror, podstawy</span></li>
+            <li><span data-i18n="alpha2"><strong>Omega</strong> - lepsze statki, więcej skillów</span></li>
+            <li data-i18n="alpha3">Omega nie jest wymagane, ale ułatwia życie</li>
+        </ul>
+
+        <h3 data-i18n="new-ships-title">Jakie statki?</h3>
+        <p data-i18n="ships-intro">Na początku:</p>
+        <ul>
+            <li><span data-i18n="ship1"><strong>Venture</strong> - podstawowy mining (Alpha OK)</span></li>
+            <li><span data-i18n="ship2"><strong>Procuror</strong> - tanky barge (Alpha OK)</span></li>
+            <li><span data-i18n="ship3"><strong>Retriever</strong> - więcej cargo (Omega)</span></li>
+            <li><span data-i18n="ship4"><strong>Hauler</strong> - Iteron Mark V do transportu</span></li>
+        </ul>
+
+        <h3 data-i18n="new-skills-title">Jakie skille?</h3>
+        <p data-i18n="skills-intro">Priorytet dla minera:</p>
+        <ul>
+            <li><span data-i18n="skill1"><strong>Mining</strong> - podstawa (lvl 5)</span></li>
+            <li><span data-i18n="skill2"><strong>Astrogeology</strong> - więcej yield (lvl 4-5)</span></li>
+            <li><span data-i18n="skill3"><strong>Mining Barge</strong> - żeby latać w Procuror/Retriever</span></li>
+            <li><span data-i18n="skill4"><strong>Exhumers</strong> - na przyszłość (Hulk, Skiff)</span></li>
+            <li><span data-i18n="skill5"><strong>Drones</strong> - obrona (lvl 5)</span></li>
+        </ul>
+
+        <h3 data-i18n="new-safety-title">Bezpieczeństwo w Null-Sec</h3>
+        <ul>
+            <li><span data-i18n="safety1"><strong>Zawsze śledź Intel</strong> - kanały sojuszu</span></li>
+            <li><span data-i18n="safety2"><strong>Align out</strong> - bądź gotowy do ucieczki</span></li>
+            <li><span data-i18n="safety3"><strong>D-scan</strong> - skanuj co 5-10 sekund</span></li>
+            <li><span data-i18n="safety4"><strong>Safe spots</strong> - miej punkty ucieczki</span></li>
+            <li><span data-i18n="safety5"><strong>Cloak</strong> - jak masz, używaj</span></li>
+        </ul>
+
+        <h3 data-i18n="new-questions-title">Pytania?</h3>
+        <p data-i18n="new-questions-text">Napisz na Discord albo in-game. Nikt nie będzie krzyczeć, że pytasz. Wszyscy kiedyś byli nowi!</p>
+
+        <div class="buttons" style="margin-top: 30px;">
+            <a class="btn" href="https://discord.gg/sFjPVQTQ" target="_blank">Dołącz na Discord</a>
+        </div>
+    </section>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="page-content">
+    <section>
+        <h2 data-i18n="gallery-title">Galeria</h2>
+        <p data-i18n="gallery-intro">Nasze przygody w EVE Online - mining ops, fleet operations i momenty z życia korporacji.</p>
+    </section>
+
+    <div class="gallery">
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800" alt="Mining Operation">
+            <div class="overlay">
+                <h3 data-i18n="gal1-title">Mining Op w Syndicate</h3>
+                <p data-i18n="gal1-desc">Regularna kopalnia z ekipą</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800" alt="Fleet Formation">
+            <div class="overlay">
+                <h3 data-i18n="gal2-title">Fleet Defense</h3>
+                <p data-i18n="gal2-desc">Obrona naszych struktur</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800" alt="Industrial Complex">
+            <div class="overlay">
+                <h3 data-i18n="gal3-title">Baza Przemysłowa</h3>
+                <p data-i18n="gal3-desc">Nasze struktury w Syndicate</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" alt="Space Station">
+            <div class="overlay">
+                <h3 data-i18n="gal4-title">Stacja Sojuszu</h3>
+                <p data-i18n="gal4-desc">Dom w null-sec</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800" alt="Nebula">
+            <div class="overlay">
+                <h3 data-i18n="gal5-title">Piękno Kosmosu</h3>
+                <p data-i18n="gal5-desc">Region Syndicate</p>
+            </div>
+        </div>
+
+        <div class="gallery-item" onclick="openModal(this)">
+            <img src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=800" alt="Battle">
+            <div class="overlay">
+                <h3 data-i18n="gal6-title">Fleet Battle</h3>
+                <p data-i18n="gal6-desc">Akcja w null-sec</p>
+            </div>
+        </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 40px; color: var(--text-muted);" data-i18n="gallery-note">
+        * Zdjęcia przykładowe - przedstawiają klimat EVE Online
+    </p>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page-content">
+    <section style="max-width: 800px; margin: 0 auto;">
+        <h2 data-i18n="contact-title">Kontakt</h2>
+        <p data-i18n="contact-intro">Chcesz dołączyć, zadać pytanie albo po prostu pogadać? Oto jak się z nami skontaktować.</p>
+
+        <h3 data-i18n="contact-discord-title">Discord (główna komunikacja)</h3>
+        <p data-i18n="contact-discord-text">Najszybszy sposób kontaktu:</p>
+        <div class="buttons">
+            <a class="btn" href="https://discord.gg/sFjPVQTQ" target="_blank">discord.gg/sFjPVQTQ</a>
+        </div>
+
+        <h3 data-i18n="contact-ingame-title">In-Game</h3>
+        <p data-i18n="contact-ingame-text">Napisz wiadomość do:</p>
+        <p class="highlight" style="font-size: 1.2em;">Krzysztof Retnet</p>
+        <p style="color: var(--text-muted);">Lub wyślij aplikację bezpośrednio do korporacji <strong>Eleya</strong></p>
+
+        <h3 data-i18n="contact-links-title">Linki</h3>
+        <ul>
+            <li><strong>zKillboard:</strong> <a href="https://zkillboard.com/corporation/98616801/" class="highlight" target="_blank">zkillboard.com/corporation/98616801</a></li>
+            <li><strong>EVE Who:</strong> Szukaj "Eleya" w EVE</li>
+        </ul>
+
+        <h3 data-i18n="contact-faq-title">Często zadawane pytania</h3>
+        <p><strong>Q: Czy przyjmujecie Alpha?</strong><br>
+        A: Tak! Witamy wszystkich.</p>
+
+        <p><strong>Q: Czy trzeba mówić po angielsku?</strong><br>
+        A: Nie, jesteśmy 100% PL corp.</p>
+
+        <p><strong>Q: Czy są wymagania SP?</strong><br>
+        A: Nie, zupełnie żadnych.</p>
+
+        <p><strong>Q: Czy można grać casualowo?</strong><br>
+        A: Tak, grasz kiedy chcesz i jak chcesz.</p>
+
+        <p><strong>Q: Co jeśli zginę?</strong><br>
+        A: To część gry! Nie ma kar.</p>
+
+        <div class="buttons" style="margin-top: 40px;">
+            <a class="btn" href="https://discord.gg/sFjPVQTQ" target="_blank">Discord</a>
+            <a class="btn btn-secondary" href="https://zkillboard.com/corporation/98616801/" target="_blank">zKillboard</a>
+        </div>
+    </section>
+</div>
+
+<!-- MODAL -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="">
+    </div>
+</div>
 
 <footer>
-    &copy; 2025 Polska Korporacja EVE Online<br>
+    &copy; 2025 Eleya - Polska Korporacja EVE Online<br>
     Syndicate | Intaki-Business Logistics Union
 </footer>
+
+<script>
+// Translations
+const translations = {
+    pl: {
+        'nav-home': 'Home',
+        'nav-recruitment': 'Rekrutacja',
+        'nav-rules': 'Zasady',
+        'nav-fleet': 'Flota',
+        'nav-newbies': 'Dla Nowych',
+        'nav-gallery': 'Galeria',
+        'nav-contact': 'Kontakt',
+        'header-region': 'Region:',
+        'hero-title': 'Witaj w Eleya',
+        'hero-desc': 'Polska korporacja w EVE Online, gdzie kopiemy razem, rozmawiamy i budujemy imperium przemysłowe w Syndicate. Luźna atmosfera, regularne mining ops, zero stresu.',
+        'hero-apply': 'Aplikuj',
+        'stat-ops': 'Mining Ops',
+        'stat-polish': 'Polski Skład',
+        'stat-drama': 'Drama',
+        'stat-fun': 'Zabawy',
+        'about-title': 'O nas',
+        'about-text1': 'Jesteśmy polską korporacją w EVE Online, która operuje w regionie Syndicate. Skupiamy się głównie na górnictwie i przemyśle, ale nie ograniczamy się tylko do tego.',
+        'about-text2': 'Nie mamy sztywnych zasad ani wymagań - jeśli chcesz kopać, kopiemy razem. Luźna atmosfera to nasz priorytet.',
+        'activities-title': 'Czym się zajmujemy',
+        'act1': 'Regularne mining ops (główna działalność)',
+        'act2': 'Industry & produkcja',
+        'act3': 'Logistics & reprocessing',
+        'act4': 'Wsparcie dla sojuszu',
+        'act5': 'PvE / ratting',
+        'act6': 'Fleet ops (od czasu do czasu)',
+        'alliance-title': 'Sojusz',
+        'alliance-text1': 'Jesteśmy częścią sojuszu:',
+        'alliance-text2': 'Sojusz zapewnia infrastrukturę, ochronę oraz wspólne operacje w null-sec.',
+        'why-title': 'Dlaczego Eleya?',
+        'why1': '<strong>Luźna atmosfera</strong> - zero wymagań',
+        'why2': '<strong>100% PL</strong> - gadamy po polsku',
+        'why3': '<strong>Regularne ops</strong> - zawsze ktoś kopie',
+        'why4': '<strong>Null-sec dla każdego</strong> - pomożemy',
+        'why5': '<strong>Stabilność</strong> - jesteśmy na dłużej',
+        'gallery-title': 'Galeria',
+        'gallery-intro': 'Nasze przygody w EVE Online - mining ops, fleet operations i momenty z życia korporacji.',
+        'gal1-title': 'Mining Op w Syndicate',
+        'gal1-desc': 'Regularna kopalnia z ekipą',
+        'gal2-title': 'Fleet Defense',
+        'gal2-desc': 'Obrona naszych struktur',
+        'gal3-title': 'Baza Przemysłowa',
+        'gal3-desc': 'Nasze struktury w Syndicate',
+        'gal4-title': 'Stacja Sojuszu',
+        'gal4-desc': 'Dom w null-sec',
+        'gal5-title': 'Piękno Kosmosu',
+        'gal5-desc': 'Region Syndicate',
+        'gal6-title': 'Fleet Battle',
+        'gal6-desc': 'Akcja w null-sec',
+        'gallery-note': '* Zdjęcia przykładowe - przedstawiają klimat EVE Online'
+    },
+    en: {
+        'nav-home': 'Home',
+        'nav-recruitment': 'Recruitment',
+        'nav-rules': 'Rules',
+        'nav-fleet': 'Fleet',
+        'nav-newbies': 'For Newbies',
+        'nav-gallery': 'Gallery',
+        'nav-contact': 'Contact',
+        'header-region': 'Region:',
+        'hero-title': 'Welcome to Eleya',
+        'hero-desc': 'Polish corporation in EVE Online, where we mine together, chat, and build an industrial empire in Syndicate. Relaxed atmosphere, regular mining ops, zero stress.',
+        'hero-apply': 'Apply',
+        'stat-ops': 'Mining Ops',
+        'stat-polish': 'Polish Crew',
+        'stat-drama': 'Drama',
+        'stat-fun': 'Fun',
+        'about-title': 'About Us',
+        'about-text1': 'We are a Polish corporation in EVE Online operating in the Syndicate region. We focus mainly on mining and industry, but we are not limited to that.',
+        'about-text2': 'We have no strict rules or requirements - if you want to mine, we mine together. A relaxed atmosphere is our priority.',
+        'activities-title': 'What We Do',
+        'act1': 'Regular mining ops (main activity)',
+        'act2': 'Industry & production',
+        'act3': 'Logistics & reprocessing',
+        'act4': 'Alliance support',
+        'act5': 'PvE / ratting',
+        'act6': 'Fleet ops (from time to time)',
+        'alliance-title': 'Alliance',
+        'alliance-text1': 'We are part of the alliance:',
+        'alliance-text2': 'The alliance provides infrastructure, protection and joint operations in null-sec.',
+        'why-title': 'Why Eleya?',
+        'why1': '<strong>Relaxed atmosphere</strong> - zero requirements',
+        'why2': '<strong>100% PL</strong> - we speak Polish',
+        'why3': '<strong>Regular ops</strong> - someone is always mining',
+        'why4': '<strong>Null-sec for everyone</strong> - we will help',
+        'why5': '<strong>Stability</strong> - we are here for the long term',
+        'gallery-title': 'Gallery',
+        'gallery-intro': 'Our adventures in EVE Online - mining ops, fleet operations and moments from corp life.',
+        'gal1-title': 'Mining Op in Syndicate',
+        'gal1-desc': 'Regular mining with the team',
+        'gal2-title': 'Fleet Defense',
+        'gal2-desc': 'Defending our structures',
+        'gal3-title': 'Industrial Base',
+        'gal3-desc': 'Our structures in Syndicate',
+        'gal4-title': 'Alliance Station',
+        'gal4-desc': 'Home in null-sec',
+        'gal5-title': 'Beauty of Space',
+        'gal5-desc': 'Syndicate Region',
+        'gal6-title': 'Fleet Battle',
+        'gal6-desc': 'Action in null-sec',
+        'gallery-note': '* Example images - representing EVE Online atmosphere'
+    }
+};
+
+let currentLang = 'pl';
+
+function translatePage(lang) {
+    currentLang = lang;
+    const elements = document.querySelectorAll('[data-i18n]');
+    
+    elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+        }
+    });
+}
+
+function showPage(pageId) {
+    const pages = document.querySelectorAll('.page-content');
+    pages.forEach(page => page.classList.remove('active'));
+    
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => link.classList.remove('active'));
+    
+    const selectedPage = document.getElementById(pageId);
+    if (selectedPage) {
+        selectedPage.classList.add('active');
+    }
+    
+    const selectedLink = document.querySelector(`[data-page="${pageId}"]`);
+    if (selectedLink) {
+        selectedLink.classList.add('active');
+    }
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openModal(element) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const img = element.querySelector('img');
+    
+    modal.classList.add('active');
+    modalImg.src = img.src;
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            showPage(pageId);
+        });
+    });
+    
+    const langBtns = document.querySelectorAll('.lang-btn');
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            langBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const lang = this.getAttribute('data-lang');
+            translatePage(lang);
+        });
+    });
+});
+</script>
 
 </body>
 </html>
